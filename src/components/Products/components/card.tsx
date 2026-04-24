@@ -5,11 +5,12 @@ interface ProductCardProps {
 	price: string
 	image: string
 	width: number
+	onClick: () => void
 }
 
-export default function ProductCard({ category, name, description, price, image, width }: ProductCardProps) {
+export default function ProductCard({ category, name, description, price, image, width, onClick }: ProductCardProps) {
 	return (
-		<article className="flex-shrink-0 px-4" style={{ width: `${width}%` }}>
+		<article className="flex-shrink-0 px-0 md:px-4" style={{ width: `${width}%` }}>
 			<div className="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow">
 				<div className="w-full h-72 bg-[#F0FAFA] overflow-hidden">
 					<div
@@ -25,7 +26,10 @@ export default function ProductCard({ category, name, description, price, image,
 					<p className="text-[#888888] text-sm leading-relaxed">{description}</p>
 					<div className="flex items-center justify-between mt-3">
 						<span className="text-[#F2A8C0] text-2xl font-bold">{price}</span>
-						<button className="text-sm text-[#444444] border border-[#E8D5E0] px-4 py-2 rounded-full hover:bg-[#F2A8C0] hover:text-white hover:border-[#F2A8C0] transition-colors">
+						<button
+						onClick={onClick}
+						className="text-sm text-[#444444] border border-[#E8D5E0] px-4 py-2 rounded-full hover:bg-[#F2A8C0] hover:text-white hover:border-[#F2A8C0] transition-colors"
+					>
 							Ver pieza
 						</button>
 					</div>

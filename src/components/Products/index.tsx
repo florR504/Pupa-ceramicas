@@ -2,14 +2,19 @@
 
 import { useEffect, useRef, useState } from 'react'
 import ProductCard from './components/card'
+import ProductModal from './components/modal'
+import { type Product } from '@/types/product'
 
-const products = [
+const products: Product[] = [
 	{
 		category: 'VAJILLA',
 		name: 'Cuenco Olivo',
 		description: 'Arcilla natural con esmalte verde olivo. Apto para horno y lavavajillas.',
 		price: '€48',
 		image: '/assets/images/pollito.jpeg',
+		dimensions: '14 cm Ø · 8 cm alto',
+		material: 'Arcilla natural esmaltada',
+		stock: 'Disponible (1 ud.)',
 	},
 	{
 		category: 'DECORACIÓN',
@@ -18,6 +23,9 @@ const products = [
 			'Forma lunar inspirada en la tradición mediterránea. Acabado mate con texturas naturales.',
 		price: '€95',
 		image: '/assets/images/sincara_sahumerio.jpeg',
+		dimensions: '12 cm Ø · 22 cm alto',
+		material: 'Arcilla blanca mate',
+		stock: 'Encargo (20 días)',
 	},
 	{
 		category: 'TALLER',
@@ -26,6 +34,9 @@ const products = [
 			'Taza y platillo artesanales, ideales para el momento del café. Edición limitada.',
 		price: '€62',
 		image: '/assets/images/totoro_sahumerio.jpeg',
+		dimensions: 'Taza 8 cm Ø · Platillo 14 cm',
+		material: 'Arcilla natural esmaltada',
+		stock: 'Disponible (2 ud.)',
 	},
 	{
 		category: 'TEST',
@@ -33,6 +44,9 @@ const products = [
 		description: 'Arcilla natural con esmalte verde olivo. Apto para horno y lavavajillas.',
 		price: '€48',
 		image: '/assets/images/pollito.jpeg',
+		dimensions: '14 cm Ø · 8 cm alto',
+		material: 'Arcilla natural esmaltada',
+		stock: 'Disponible (1 ud.)',
 	},
 	{
 		category: 'CUENCOS',
@@ -41,6 +55,9 @@ const products = [
 			'Forma lunar inspirada en la tradición mediterránea. Acabado mate con texturas naturales.',
 		price: '€95',
 		image: '/assets/images/sincara_sahumerio.jpeg',
+		dimensions: '12 cm Ø · 22 cm alto',
+		material: 'Arcilla blanca mate',
+		stock: 'Encargo (20 días)',
 	},
 	{
 		category: 'SAHUMERIOS',
@@ -49,6 +66,9 @@ const products = [
 			'Taza y platillo artesanales, ideales para el momento del café. Edición limitada.',
 		price: '€62',
 		image: '/assets/images/totoro_sahumerio.jpeg',
+		dimensions: 'Taza 8 cm Ø · Platillo 14 cm',
+		material: 'Arcilla natural esmaltada',
+		stock: 'Disponible (2 ud.)',
 	},
 ]
 
@@ -62,6 +82,7 @@ function getVisibleCount() {
 export default function Products() {
 	const [current, setCurrent] = useState(0)
 	const [visibleCount, setVisibleCount] = useState(3)
+	const [selectedProduct, setSelectedProduct] = useState<Product | null>(null)
 	const startX = useRef<number | null>(null)
 
 	const maxIndex = products.length - visibleCount
@@ -94,6 +115,10 @@ export default function Products() {
 	const cardWidth = 100 / visibleCount
 
 	return (
+		<>
+		{selectedProduct && (
+			<ProductModal product={selectedProduct} onClose={() => setSelectedProduct(null)} />
+		)}
 		<section id="colección" className="bg-[#FDFAF9] py-24 px-8 md:px-20">
 			<div className="max-w-6xl mx-auto">
 				{/* Header */}
@@ -127,7 +152,12 @@ export default function Products() {
 						style={{ transform: `translateX(-${current * cardWidth}%)` }}
 					>
 						{products.map((product, i) => (
-							<ProductCard key={i} {...product} width={cardWidth} />
+							<ProductCard
+								key={i}
+								{...product}
+								width={cardWidth}
+								onClick={() => setSelectedProduct(product)}
+							/>
 						))}
 					</div>
 				</div>
@@ -171,5 +201,6 @@ export default function Products() {
 				</div>
 			</div>
 		</section>
+		</>
 	)
 }

@@ -10,6 +10,8 @@ const slides = [
 	'/assets/images/juego_taza_plato_gatito.jpeg',
 	'/assets/images/sincara_sahumerio.jpeg',
 	'/assets/images/totoro_sahumerio.jpeg',
+	'/assets/images/gancitos.jpeg',
+	'/assets/images/oniguiri.jpeg',
 ]
 
 export default function Hero() {
