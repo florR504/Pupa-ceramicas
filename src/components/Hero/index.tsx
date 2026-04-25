@@ -55,7 +55,7 @@ export default function Hero() {
 
 			{/* Contenido */}
 			<div className="relative z-10 flex flex-col items-start justify-center h-full px-8 md:px-20 max-w-3xl">
-				<span className="text-[#F2A8C0] text-xs font-semibold tracking-[0.3em] uppercase mb-6">
+				<span className="text-[#F2A8C0] text-xs font-semibold tracking-[0.3em] uppercase mb-2 md:mb-6">
 					Cerámica Artesanal • Hecho a Mano
 				</span>
 

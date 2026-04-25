@@ -31,7 +31,7 @@ export default function Navbar() {
 			{/* Cart button */}
 			<button
 				onClick={openCart}
-				className="relative text-white/90 hover:text-white transition-colors"
+				className="relative text-white/90 hover:text-white transition-colors cursor-pointer"
 				aria-label="Carrito"
 			>
 				<svg width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">

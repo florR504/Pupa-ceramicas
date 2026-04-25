@@ -28,7 +28,7 @@ export default function ProductCard({ category, name, description, price, image,
 						<span className="text-[#F2A8C0] text-2xl font-bold">{price}</span>
 						<button
 						onClick={onClick}
-						className="text-sm text-[#444444] border border-[#E8D5E0] px-4 py-2 rounded-full hover:bg-[#F2A8C0] hover:text-white hover:border-[#F2A8C0] transition-colors"
+						className="text-sm text-[#444444] border border-[#E8D5E0] px-4 py-2 rounded-full hover:bg-[#F2A8C0] hover:text-white hover:border-[#F2A8C0] transition-colors cursor-pointer"
 					>
 							Ver pieza
 						</button>
