@@ -4,73 +4,9 @@ import { useEffect, useRef, useState } from 'react'
 import ProductCard from './components/card'
 import ProductModal from './components/modal'
 import { type Product } from '@/types/product'
+import productsData from '@/data/products.json'
 
-const products: Product[] = [
-	{
-		category: 'VAJILLA',
-		name: 'Cuenco Olivo',
-		description: 'Arcilla natural con esmalte verde olivo. Apto para horno y lavavajillas.',
-		price: '€48',
-		image: '/assets/images/pollito.jpeg',
-		dimensions: '14 cm Ø · 8 cm alto',
-		material: 'Arcilla natural esmaltada',
-		stock: 'Disponible (1 ud.)',
-	},
-	{
-		category: 'DECORACIÓN',
-		name: 'Jarrón Luna',
-		description:
-			'Forma lunar inspirada en la tradición mediterránea. Acabado mate con texturas naturales.',
-		price: '€95',
-		image: '/assets/images/sincara_sahumerio.jpeg',
-		dimensions: '12 cm Ø · 22 cm alto',
-		material: 'Arcilla blanca mate',
-		stock: 'Encargo (20 días)',
-	},
-	{
-		category: 'TALLER',
-		name: 'Set Café Ritual',
-		description:
-			'Taza y platillo artesanales, ideales para el momento del café. Edición limitada.',
-		price: '€62',
-		image: '/assets/images/totoro_sahumerio.jpeg',
-		dimensions: 'Taza 8 cm Ø · Platillo 14 cm',
-		material: 'Arcilla natural esmaltada',
-		stock: 'Disponible (2 ud.)',
-	},
-	{
-		category: 'TEST',
-		name: 'Cuenco Olivo',
-		description: 'Arcilla natural con esmalte verde olivo. Apto para horno y lavavajillas.',
-		price: '€48',
-		image: '/assets/images/pollito.jpeg',
-		dimensions: '14 cm Ø · 8 cm alto',
-		material: 'Arcilla natural esmaltada',
-		stock: 'Disponible (1 ud.)',
-	},
-	{
-		category: 'CUENCOS',
-		name: 'Jarrón Luna',
-		description:
-			'Forma lunar inspirada en la tradición mediterránea. Acabado mate con texturas naturales.',
-		price: '€95',
-		image: '/assets/images/sincara_sahumerio.jpeg',
-		dimensions: '12 cm Ø · 22 cm alto',
-		material: 'Arcilla blanca mate',
-		stock: 'Encargo (20 días)',
-	},
-	{
-		category: 'SAHUMERIOS',
-		name: 'Set Café Ritual',
-		description:
-			'Taza y platillo artesanales, ideales para el momento del café. Edición limitada.',
-		price: '€62',
-		image: '/assets/images/totoro_sahumerio.jpeg',
-		dimensions: 'Taza 8 cm Ø · Platillo 14 cm',
-		material: 'Arcilla natural esmaltada',
-		stock: 'Disponible (2 ud.)',
-	},
-]
+const products: Product[] = productsData
 
 function getVisibleCount() {
 	if (typeof window === 'undefined') return 3
@@ -167,7 +103,7 @@ export default function Products() {
 					<button
 						onClick={prev}
 						disabled={current === 0}
-						className="w-10 h-10 rounded-full border border-[#E8D5E0] flex items-center justify-center text-[#888888] hover:bg-[#F2A8C0] hover:text-white hover:border-[#F2A8C0] transition-colors disabled:opacity-30 disabled:pointer-events-none"
+						className="w-10 h-10 rounded-full border border-[#E8D5E0] flex items-center justify-center text-[#888888] hover:bg-[#F2A8C0] hover:text-white hover:border-[#F2A8C0] transition-colors disabled:opacity-30 disabled:pointer-events-none cursor-pointer"
 						aria-label="Anterior"
 					>
 						<svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
@@ -191,7 +127,7 @@ export default function Products() {
 					<button
 						onClick={next}
 						disabled={current >= maxIndex}
-						className="w-10 h-10 rounded-full border border-[#E8D5E0] flex items-center justify-center text-[#888888] hover:bg-[#F2A8C0] hover:text-white hover:border-[#F2A8C0] transition-colors disabled:opacity-30 disabled:pointer-events-none"
+						className="w-10 h-10 rounded-full border border-[#E8D5E0] flex items-center justify-center text-[#888888] hover:bg-[#F2A8C0] hover:text-white hover:border-[#F2A8C0] transition-colors disabled:opacity-30 disabled:pointer-events-none cursor-pointer"
 						aria-label="Siguiente"
 					>
 						<svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">

@@ -1,0 +1,122 @@
+[
+  {
+    "category": "VAJILLA",
+    "name": "Azucarera Conejito",
+    "description": "Azucarera artesanal con tapa en forma de conejito. Ideal para endulzar tu mesa con ternura.",
+    "price": "€52",
+    "image": "/assets/images/azucarera_conejito.jpeg",
+    "dimensions": "10 cm Ø · 12 cm alto",
+    "material": "Arcilla blanca esmaltada",
+    "stock": "Disponible (1 ud.)"
+  },
+  {
+    "category": "VAJILLA",
+    "name": "Azucarera Gatito",
+    "description": "Azucarera con tapa en forma de gatito dormido. Cada detalle pintado a mano hace que ninguna sea igual a otra.",
+    "price": "€52",
+    "image": "/assets/images/azucarera_gatito.jpeg",
+    "dimensions": "10 cm Ø · 12 cm alto",
+    "material": "Arcilla blanca esmaltada",
+    "stock": "Disponible (2 ud.)"
+  },
+  {
+    "category": "VAJILLA",
+    "name": "Set Taza y Plato Gatito",
+    "description": "Set de taza y platillo con ilustración de gatito. Perfecto para el ritual del café o el té. Apto para lavavajillas.",
+    "price": "€68",
+    "image": "/assets/images/juego_taza_plato_gatito.jpeg",
+    "dimensions": "Taza 8 cm Ø · Plato 14 cm",
+    "material": "Arcilla natural esmaltada",
+    "stock": "Disponible (1 ud.)"
+  },
+  {
+    "category": "VAJILLA",
+    "name": "Taza con Logo",
+    "description": "Taza clásica con el logo de pupa en relieve. Hecha en torno, con acabado esponjado y esmalte interior brillante.",
+    "price": "€38",
+    "image": "/assets/images/taza_con_logo.jpeg",
+    "dimensions": "8 cm Ø · 9 cm alto",
+    "material": "Arcilla natural esmaltada",
+    "stock": "Disponible (3 ud.)"
+  },
+  {
+    "category": "VAJILLA",
+    "name": "Plato Pikachu",
+    "description": "Plato de postre con Pikachu ilustrado a mano. Una pieza de colección para los amantes del anime y la cerámica.",
+    "price": "€45",
+    "image": "/assets/images/plato_pikachu.jpeg",
+    "dimensions": "18 cm Ø · 2 cm alto",
+    "material": "Arcilla blanca esmaltada",
+    "stock": "Encargo (20 días)"
+  },
+  {
+    "category": "DECORACIÓN",
+    "name": "Sahumerio Sincara",
+    "description": "Portasahumerio artesanal con forma de personaje. Diseñado para sostener varitas de incienso y crear ambientes únicos.",
+    "price": "€35",
+    "image": "/assets/images/sincara_sahumerio.jpeg",
+    "dimensions": "8 cm Ø · 10 cm alto",
+    "material": "Arcilla natural",
+    "stock": "Disponible (2 ud.)"
+  },
+  {
+    "category": "DECORACIÓN",
+    "name": "Sahumerio Totoro",
+    "description": "Portasahumerio inspirado en el personaje de Miyazaki. El humo del incienso sale por la boca, creando un efecto mágico.",
+    "price": "€42",
+    "image": "/assets/images/totoro_sahumerio.jpeg",
+    "dimensions": "9 cm Ø · 11 cm alto",
+    "material": "Arcilla natural pintada",
+    "stock": "Encargo (20 días)"
+  },
+  {
+    "category": "DECORACIÓN",
+    "name": "Taza al Revés",
+    "description": "Pieza escultórica en forma de taza volcada. Una joya para estantes y mesas que genera conversación. No apta para uso.",
+    "price": "€55",
+    "image": "/assets/images/taza_al_reves.jpeg",
+    "dimensions": "9 cm Ø · 8 cm alto",
+    "material": "Arcilla blanca mate",
+    "stock": "Disponible (1 ud.)"
+  },
+  {
+    "category": "DECORACIÓN",
+    "name": "Pollito",
+    "description": "Figura decorativa de pollito en arcilla natural. Pequeña, adorable y hecha a pellizco. Perfecta para el escritorio o la repisa.",
+    "price": "€28",
+    "image": "/assets/images/pollito.jpeg",
+    "dimensions": "6 cm Ø · 7 cm alto",
+    "material": "Arcilla natural",
+    "stock": "Disponible (4 ud.)"
+  },
+  {
+    "category": "DECORACIÓN",
+    "name": "Panda Sauna",
+    "description": "Figura de panda relajado en la sauna. Una pieza tierna y original, ideal como regalo o para alegrar cualquier espacio.",
+    "price": "€48",
+    "image": "/assets/images/panda_sauna.jpeg",
+    "dimensions": "10 cm × 8 cm",
+    "material": "Arcilla blanca pintada",
+    "stock": "Disponible (1 ud.)"
+  },
+  {
+    "category": "DECORACIÓN",
+    "name": "Oniguiri",
+    "description": "Figura de oniguiri (arroz japonés) en arcilla. Pequeña escultura kawaii hecha a mano, con detalles pintados uno a uno.",
+    "price": "€32",
+    "image": "/assets/images/oniguiri.jpeg",
+    "dimensions": "7 cm × 6 cm",
+    "material": "Arcilla blanca esmaltada",
+    "stock": "Disponible (2 ud.)"
+  },
+  {
+    "category": "DECORACIÓN",
+    "name": "Gallina",
+    "description": "Figura de gallina en arcilla natural con detalles a mano. Una pieza con carácter, perfecta para cocinas o jardines interiores.",
+    "price": "€36",
+    "image": "/assets/images/gallina.jpeg",
+    "dimensions": "12 cm × 10 cm",
+    "material": "Arcilla natural",
+    "stock": "Encargo (20 días)"
+  }
+]
