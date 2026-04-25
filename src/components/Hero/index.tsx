@@ -70,16 +70,16 @@ export default function Hero() {
 					hacer más bonita tu vida de todos los días.
 				</p>
 
-				<div className="flex flex-col sm:flex-row gap-4">
+				<div className="flex  sm:flex-row gap-4">
 					<a
 						href="#colección"
-						className="bg-[#F2A8C0] text-white text-sm font-semibold tracking-wide px-10 py-4 rounded-sm hover:bg-[#e898b0] transition-colors"
+						className="bg-[#F2A8C0] text-white text-sm font-semibold tracking-wide px-4 md:px-10 py-4 rounded-sm hover:bg-[#e898b0] transition-colors"
 					>
 						Ver Colección
 					</a>
 					<a
 						href="#nosotros"
-						className="border border-white/70 text-white text-sm font-medium tracking-wide px-10 py-4 rounded-sm hover:bg-white/10 transition-colors"
+						className="border border-white/70 text-white text-sm font-medium tracking-wide px-4 md:px-10 py-4 rounded-sm hover:bg-white/10 transition-colors"
 					>
 						Nuestra Historia
 					</a>
