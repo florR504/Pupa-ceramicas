@@ -1,5 +1,6 @@
 import WorkshopCard from './components/workshopCard'
 import WorkshopView from './components/workshopView'
+import { workshopWhatsAppUrl } from '@/lib/whatsapp'
 
 const workshops = [
 	{
@@ -11,8 +12,9 @@ const workshops = [
 		details: ['Duración: 3 horas', 'Plazas: máx. 6 personas', 'Materiales incluidos'],
 		price: 'Gratis!',
 		priceLabel: 'por persona',
-		cta: 'Anotarme',
+		cta: 'Quiero saber más',
 		featured: false,
+		whatsappUrl: workshopWhatsAppUrl('Clase de prueba', 'inquiry'),
 	},
 	{
 		badge: 'No hace falta experiencia',
@@ -25,6 +27,7 @@ const workshops = [
 		priceLabel: 'por persona',
 		cta: 'Anotarme',
 		featured: true,
+		whatsappUrl: workshopWhatsAppUrl('Taller de ceramica', 'signup'),
 	}
 ]
 
@@ -55,8 +58,8 @@ export default function Workshops() {
 
 				{/* Cards */}
 				<div className="grid grid-cols-1 md:grid-cols-2 gap-7 mb-10">
-					{workshops.map((w) => (
-						<WorkshopCard key={w.name} {...w} />
+					{workshops.map((w, i) => (
+						<WorkshopCard key={w.name} {...w} delay={i * 150} />
 					))}
 				</div>
 

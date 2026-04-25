@@ -8,6 +8,8 @@ interface WorkshopCardProps {
 	priceLabel: string
 	cta: string
 	featured: boolean
+	whatsappUrl: string
+	delay?: number
 }
 
 export default function WorkshopCard({
@@ -20,9 +22,13 @@ export default function WorkshopCard({
 	priceLabel,
 	cta,
 	featured,
+	whatsappUrl,
+	delay = 0,
 }: WorkshopCardProps) {
 	return (
 		<article
+			data-reveal="right"
+			style={{ transitionDelay: `${delay}ms` }}
 			className={`rounded-xl flex flex-col overflow-hidden ${
 				featured ? 'bg-[#8ECFC9] shadow-lg' : 'bg-white border border-[#E8D5E0]'
 			}`}
@@ -62,7 +68,10 @@ export default function WorkshopCard({
 						{price}
 					</p>
 				</div>
-				<button
+				<a
+					href={whatsappUrl}
+					target="_blank"
+					rel="noopener noreferrer"
 					className={`text-sm font-semibold px-6 py-2.5 rounded-full transition-colors ${
 						featured
 							? 'bg-white text-[#8ECFC9] hover:bg-white/90'
@@ -70,7 +79,7 @@ export default function WorkshopCard({
 					}`}
 				>
 					{cta}
-				</button>
+				</a>
 			</div>
 		</article>
 	)
