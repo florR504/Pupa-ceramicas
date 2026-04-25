@@ -138,3 +138,31 @@
     font-family: var(--font-fredoka);
   }
 }
+
+/* Scroll reveal — fade up (secciones) */
+section.reveal {
+  opacity: 0;
+  transform: translateY(48px);
+  transition:
+    opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+section.reveal.in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Scroll reveal — slide from right (aplicado vía JS) */
+.reveal-right {
+  opacity: 0;
+  transform: translateX(72px);
+  transition:
+    opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal-right.in-view {
+  opacity: 1;
+  transform: translateX(0);
+}
