@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import Image from 'next/image'
 import { useCart } from '@/context/cart'
 import { STORE_WHATSAPP } from '@/config/store'
@@ -11,7 +11,34 @@ export default function Navbar() {
 	const [open, setOpen] = useState(false)
 	const { totalItems, openCart } = useCart()
 
+	const dragStartY = useRef<number | null>(null)
+	const dragCurrentY = useRef(0)
+	const [dragOffset, setDragOffset] = useState(0)
+	const isDragging = useRef(false)
+
 	const close = () => setOpen(false)
+
+	const onTouchStart = (e: React.TouchEvent) => {
+		dragStartY.current = e.touches[0].clientY
+		isDragging.current = true
+	}
+
+	const onTouchMove = (e: React.TouchEvent) => {
+		if (!isDragging.current || dragStartY.current === null) return
+		const delta = e.touches[0].clientY - dragStartY.current
+		dragCurrentY.current = delta
+		if (delta > 0) setDragOffset(delta)
+	}
+
+	const onTouchEnd = () => {
+		if (dragCurrentY.current > 80) {
+			close()
+		}
+		dragStartY.current = null
+		dragCurrentY.current = 0
+		isDragging.current = false
+		setDragOffset(0)
+	}
 
 	return (
 		<>
@@ -78,7 +105,11 @@ export default function Navbar() {
 
 				{/* Sheet */}
 				<div
-					className={`absolute bottom-0 left-0 right-0 bg-white rounded-t-3xl transition-transform duration-300 ease-out ${open ? 'translate-y-0' : 'translate-y-full'}`}
+					className={`absolute bottom-0 left-0 right-0 bg-white rounded-t-3xl transition-transform ease-out ${dragOffset > 0 ? 'duration-0' : 'duration-300'} ${open ? 'translate-y-0' : 'translate-y-full'}`}
+					style={dragOffset > 0 ? { transform: `translateY(${dragOffset}px)` } : undefined}
+					onTouchStart={onTouchStart}
+					onTouchMove={onTouchMove}
+					onTouchEnd={onTouchEnd}
 				>
 					{/* Handle */}
 					<div className="flex justify-center pt-3 pb-2">
