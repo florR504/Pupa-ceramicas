@@ -121,7 +121,7 @@ export default function Contact() {
 							value={name}
 							onChange={(e) => setName(e.target.value)}
 							placeholder="¿Cómo te llamás?"
-							className="border border-[#E8D5E0] bg-white rounded-lg px-4 py-3 text-sm text-[#444444] placeholder:text-[#CCCCCC] focus:outline-none focus:ring-2 focus:ring-[#F2A8C0]/40 focus:border-[#F2A8C0] transition-colors"
+							className="border border-[#E8D5E0] bg-white rounded-lg px-4 py-3 text-base text-[#444444] placeholder:text-[#CCCCCC] focus:outline-none focus:ring-2 focus:ring-[#F2A8C0]/40 focus:border-[#F2A8C0] transition-colors"
 						/>
 					</div>
 
@@ -136,7 +136,7 @@ export default function Contact() {
 							onChange={(e) => setMessage(e.target.value)}
 							placeholder="Contanos qué tenés en mente..."
 							rows={5}
-							className="border border-[#E8D5E0] bg-white rounded-lg px-4 py-3 text-sm text-[#444444] placeholder:text-[#CCCCCC] focus:outline-none focus:ring-2 focus:ring-[#F2A8C0]/40 focus:border-[#F2A8C0] transition-colors resize-none"
+							className="border border-[#E8D5E0] bg-white rounded-lg px-4 py-3 text-base text-[#444444] placeholder:text-[#CCCCCC] focus:outline-none focus:ring-2 focus:ring-[#F2A8C0]/40 focus:border-[#F2A8C0] transition-colors resize-none"
 						/>
 					</div>
 
@@ -157,7 +157,7 @@ export default function Contact() {
 						target="_blank"
 						rel="noopener noreferrer"
 						aria-disabled={!canSend}
-						className={`flex items-center justify-center gap-2 w-full py-4 rounded-full font-semibold text-sm tracking-wide transition-colors ${
+						className={`flex items-center justify-center gap-2 w-full py-4 rounded-full font-semibold  tracking-wide transition-colors ${
 							canSend
 								? 'bg-[#25D366] text-white hover:bg-[#1ebe5d] cursor-pointer'
 								: 'bg-[#E8D5E0] text-[#AAAAAA] pointer-events-none'
