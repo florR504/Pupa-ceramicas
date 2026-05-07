@@ -111,7 +111,8 @@ export default function Products() {
 						</svg>
 					</button>
 
-					<div className="flex gap-2">
+					{/* Desktop: todos los dots */}
+					<div className="hidden md:flex gap-2">
 						{Array.from({ length: maxIndex + 1 }).map((_, i) => (
 							<button
 								key={i}
@@ -122,6 +123,28 @@ export default function Products() {
 								aria-label={`Posición ${i + 1}`}
 							/>
 						))}
+					</div>
+
+					{/* Mobile: ventana dinámica de 5 dots */}
+					<div className="flex md:hidden items-center gap-1.5">
+						{Array.from({ length: maxIndex + 1 }).map((_, i) => {
+							const dist = Math.abs(i - current)
+							if (dist > 2) return null
+							return (
+								<button
+									key={i}
+									onClick={() => setCurrent(i)}
+									aria-label={`Posición ${i + 1}`}
+									className={`rounded-full transition-all duration-300 ${
+										i === current
+											? 'w-6 h-1.5 bg-[#F2A8C0]'
+											: dist === 1
+											? 'w-1.5 h-1.5 bg-[#E8D5E0]'
+											: 'w-1 h-1 bg-[#EDE0E6]'
+									}`}
+								/>
+							)
+						})}
 					</div>
 
 					<button
