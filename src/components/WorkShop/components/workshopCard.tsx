@@ -2,6 +2,7 @@ interface WorkshopCardProps {
 	badge: string
 	badgeColor: string
 	name: string
+	nameNode?: React.ReactNode
 	description: string
 	details: string[]
 	price: string
@@ -16,6 +17,7 @@ export default function WorkshopCard({
 	badge,
 	badgeColor,
 	name,
+	nameNode,
 	description,
 	details,
 	price,
@@ -39,7 +41,7 @@ export default function WorkshopCard({
 				</span>
 
 				<h3 className={`text-xl font-bold ${featured ? 'text-white' : 'text-neutral-dark'}`}>
-					{name}
+					{nameNode ?? name}
 				</h3>
 
 				<p className={`text-sm leading-relaxed ${featured ? 'text-brand-mint-light' : 'text-neutral-muted'}`}>

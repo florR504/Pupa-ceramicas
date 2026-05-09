@@ -59,10 +59,12 @@ export function contactWhatsAppUrl(senderName: string, message: string): string 
 	return buildUrl(text)
 }
 
-export function workshopWhatsAppUrl(name: string, type: 'inquiry' | 'signup'): string {
+export function workshopWhatsAppUrl(name: string, type: 'inquiry' | 'signup' | 'kids'): string {
 	const message =
 		type === 'inquiry'
 			? `¡Hola! Vi la *clase de prueba gratuita* en la web y me gustaría saber más información. ¿Cuándo son las próximas fechas disponibles? ¡Gracias! 🌿`
+			: type === 'kids'
+			? `¡Hola! Vi el *${name}* en la web y me gustaría anotar a mi hijo/a. ¿Cuándo son las próximas fechas, cuál es el rango de edad y cómo reservo el lugar? ¡Gracias! 🌿`
 			: `¡Hola! Me gustaría *anotarme al ${name}* que vi en la web. ¿Cuándo son las próximas fechas y cómo reservo mi lugar? ¡Gracias! 🌿`
 
 	return buildUrl(message)

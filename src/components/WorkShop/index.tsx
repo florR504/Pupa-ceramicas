@@ -12,7 +12,7 @@ const workshops = [
 		details: ['Duración: 3 horas', 'Plazas: máx. 5 personas', 'Materiales y horneado incluidos', '4 clases mensuales'],
 		price: '19500$',
 		priceLabel: 'por persona',
-		cta: 'Quiero saber más',
+		cta: 'Consultar',
 		featured: false,
 		whatsappUrl: workshopWhatsAppUrl('Clase de prueba', 'inquiry'),
 	},
@@ -28,7 +28,31 @@ const workshops = [
 		cta: 'Anotarme',
 		featured: true,
 		whatsappUrl: workshopWhatsAppUrl('Taller de ceramica', 'signup'),
-	}
+	},
+	{
+		badge: 'De 5 a 12 años',
+		badgeColor: 'text-brand-mint bg-brand-mint/10',
+		name: 'Taller KIDS',
+		nameNode: (
+			<span>
+				Taller{' '}
+				<span className="inline-flex gap-[2px]">
+					<span className="text-brand-pink drop-shadow-sm">K</span>
+					<span className="text-brand-mint drop-shadow-sm">I</span>
+					<span className="text-amber-400 drop-shadow-sm">D</span>
+					<span className="text-violet-400 drop-shadow-sm">S</span>
+				</span>
+			</span>
+		),
+		description:
+			'Nuestro taller busca que los kids, ademas de divertirse creando sus propias piezas con arcilla, se lleven conocimientos basicos de ceramica para que puedan crear tanto en el taller como en sus casas.',
+		details: ['Duración: 2 horas', 'Plazas: máx. 5 niños', 'Materiales y horneado incluidos', 'Edades: 8 a 12 años', 'Clases viernes de 17:30 a 19:00', '4 clases mensuales'],
+		price: '60000$',
+		priceLabel: 'por niño',
+		cta: 'Consultar',
+		featured: false,
+		whatsappUrl: workshopWhatsAppUrl('Taller KIDS', 'kids'),
+	},
 ]
 
 export default function Workshops() {
@@ -57,7 +81,7 @@ export default function Workshops() {
 				</div>
 
 				{/* Cards */}
-				<div className="grid grid-cols-1 md:grid-cols-2 gap-7 mb-10">
+				<div className="grid grid-cols-1 md:grid-cols-3 gap-7 mb-10">
 					{workshops.map((w, i) => (
 						<WorkshopCard key={w.name} {...w} delay={i * 150} />
 					))}
