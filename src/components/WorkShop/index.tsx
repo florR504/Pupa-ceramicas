@@ -9,8 +9,8 @@ const workshops = [
 		name: 'Clase de prueba',
 		description:
 			'Perfecta para quienes tienen dudas de si la ceramica es lo suyo. Te ofrezco una clase de prueba para que puedas conocer el proceso y ver si te gusta antes de anotarte en el taller!',
-		details: ['Duración: 3 horas', 'Plazas: máx. 6 personas', 'Materiales incluidos'],
-		price: 'Gratis!',
+		details: ['Duración: 3 horas', 'Plazas: máx. 5 personas', 'Materiales y horneado incluidos', '4 clases mensuales'],
+		price: '19500$',
 		priceLabel: 'por persona',
 		cta: 'Quiero saber más',
 		featured: false,
@@ -22,7 +22,7 @@ const workshops = [
 		name: 'Taller de ceramica',
 		description:
 			'Un taller para aprender a moldear tu propia pieza de ceramica. Te enseño los fundamentos  y te ayudo a crear tu pieza!',
-		details: ['Duración: 3 horas', 'Plazas: máx. 6 personas', 'Materiales incluidos', 'Tecnicas: pellizco, chorizo, plancha, modelado', 'Pintura: engobes, acuarelas, pigmentos, esmaltes'],
+		details: ['Duración: 3 horas', 'Plazas: máx. 5 personas', 'Materiales y horneado incluidos', 'Tecnicas: pellizco, chorizo, plancha, modelado', 'Pintura: engobes, acuarelas, pigmentos, esmaltes', '4 clases mensuales'],
 		price: '81.500$',
 		priceLabel: 'por persona',
 		cta: 'Anotarme',

@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react'
 import Navbar from '../Navbar'
 
-// Agregá tus fotos en public/assets/images/ y listá los nombres acá
+
 const slides = [
 	'/assets/images/onigiri.jpeg',
 	'/assets/images/taza_al_reves.jpeg',
@@ -66,8 +66,7 @@ export default function Hero() {
 				</h1>
 
 				<p className="text-white/80 text-lg leading-relaxed mb-10 max-w-xl">
-					Cerámica artesanal hecha a mano con amor. Cada pieza es única, pensada para
-					hacer más bonita tu vida de todos los días.
+					Cerámica artesanal hecha con amor. Cada pieza es única, funcional y pensada para hacer más bonita tu vida de todos los días.
 				</p>
 
 				<div className="flex  sm:flex-row gap-4">

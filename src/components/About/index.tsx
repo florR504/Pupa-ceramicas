@@ -34,15 +34,19 @@ export default function About() {
 					<h2 className="text-white text-4xl md:text-[2.5rem] font-bold leading-[1.2]">
 						Hola! Soy Angie,
 						<br />
-						artista de cerámica independiente
+						artista ceramista independiente
 					</h2>
 
 					<p className="text-[#E0F5F3] text-base leading-relaxed max-w-lg">
-					   Hago piezas únicas y coloridas para que alegren tus días.
+						Soy la persona detrás de "Pupa Cerámicas". Amo hacer manualidades desde que tengo memoria y, aunque estudié otra carrera, hubo una parte de mí que siempre buscó volver a crear con las manos.
 					</p>
 
 					<p className="text-[#E0F5F3] text-base leading-relaxed max-w-lg">
-					 	A traves de la arcilla puedo crear piezas que veo como lienzos en blanco para plasmar lo que siento, y compartirlo con aquellos que se sientan en resonancia con ellas 🫶🏻.
+						Éste emprendimiento surgió hace 4 años desde la necesidad personal de conectar conmigo misma y crear algo propio que disfrutase hacer todos los días.
+					</p>
+					<p className="text-[#E0F5F3] text-base leading-relaxed max-w-lg">
+						Por eso, hoy, poder enfocarme en el diseño y creación artesanal de mis piezas me permite compartir mi arte con quienes se sienten identificados con mi historia y lo que hago.
+						Gracias a tod@s los que apoyan mi arte y hacen posible que pueda seguir creando y creciendo en este proyecto tan personal ♡
 					</p>
 
 					<div className="w-12 h-0.5 bg-[#F2A8C0]" />
