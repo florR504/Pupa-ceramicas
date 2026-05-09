@@ -16,7 +16,7 @@ export default function WorkshopView() {
 
 			{/* Contenido */}
 			<div className="relative z-10 flex flex-col items-center justify-end h-full pb-12 px-8 text-center">
-				<span className="text-[#8ECFC9] text-xs font-semibold tracking-[0.4em] uppercase mb-3">
+				<span className="text-brand-mint text-xs font-semibold tracking-[0.4em] uppercase mb-3">
 					♡ Conocé nuestro espacio ♡
 				</span>
 				<h2 className="text-white text-4xl md:text-5xl font-bold leading-tight">

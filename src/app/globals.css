@@ -48,6 +48,43 @@
   --radius-2xl: calc(var(--radius) * 1.8);
   --radius-3xl: calc(var(--radius) * 2.2);
   --radius-4xl: calc(var(--radius) * 2.6);
+
+  /* Brand – pink */
+  --color-brand-pink: #F2A8C0;
+  --color-brand-pink-hover: #e898b0;
+  --color-brand-pink-bg: #FDF0F5;
+  --color-brand-pink-subtle: #FFF5F8;
+  --color-brand-pink-border: #E8D5E0;
+  --color-brand-pink-border-light: #F2E8ED;
+  --color-brand-pink-border-subtle: #F0E8EC;
+
+  /* Brand – mint */
+  --color-brand-mint: #8ECFC9;
+  --color-brand-mint-bg: #F0FAFA;
+  --color-brand-mint-light: #E0F5F3;
+  --color-brand-mint-muted: #C8EEEC;
+
+  /* Brand – cream */
+  --color-brand-cream: #FDFAF9;
+
+  /* Neutrals */
+  --color-neutral-dark: #444444;
+  --color-neutral-mid: #666666;
+  --color-neutral-muted: #888888;
+  --color-neutral-light: #AAAAAA;
+  --color-neutral-lighter: #BBBBBB;
+  --color-neutral-lightest: #CCCCCC;
+
+  /* Neutrals – surface */
+  --color-neutral-surface: #F0F0F0;
+
+  /* Brand – pink surface (close buttons, hover states) */
+  --color-brand-pink-surface: #F5F0F3;
+  --color-brand-pink-surface-hover: #ecdde6;
+
+  /* Third-party */
+  --color-whatsapp: #25D366;
+  --color-whatsapp-hover: #1ebe5d;
 }
 
 :root {
@@ -85,12 +122,6 @@
   --sidebar-border: oklch(0.91 0.02 0);
   --sidebar-ring: oklch(0.76 0.1 0);
 
-  /* colores custom de pupa */
-  --pupa-pink: #F2A8C0;
-  --pupa-mint: #8ECFC9;
-  --pupa-cream: #FDFAF9;
-  --pupa-dark: #444444;
-  --pupa-muted: #888888;
 }
 
 .dark {

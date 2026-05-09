@@ -46,7 +46,7 @@ export default function Hero() {
 			))}
 
 			{/* Fallback gradient si no hay fotos aún */}
-			<div className="absolute inset-0 bg-gradient-to-br from-[#8ECFC9] via-[#F2A8C0]/60 to-[#FDFAF9] -z-10" />
+			<div className="absolute inset-0 bg-gradient-to-br from-brand-mint via-brand-pink/60 to-brand-cream -z-10" />
 
 			{/* Overlay oscuro */}
 			<div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/40 to-black/20" />
@@ -55,7 +55,7 @@ export default function Hero() {
 
 			{/* Contenido */}
 			<div className="relative z-10 flex flex-col items-start justify-center h-full px-8 md:px-20 max-w-3xl">
-				<span className="text-[#F2A8C0] text-xs font-semibold tracking-[0.3em] uppercase mb-2 md:mb-6">
+				<span className="text-brand-pink text-xs font-semibold tracking-[0.3em] uppercase mb-2 md:mb-6">
 					Cerámica Artesanal • Hecho a Mano
 				</span>
 
@@ -72,7 +72,7 @@ export default function Hero() {
 				<div className="flex  sm:flex-row gap-4">
 					<a
 						href="#colección"
-						className="bg-[#F2A8C0] text-white text-sm font-semibold tracking-wide px-4 md:px-10 py-4 rounded-sm hover:bg-[#e898b0] transition-colors"
+						className="bg-brand-pink text-white text-sm font-semibold tracking-wide px-4 md:px-10 py-4 rounded-sm hover:bg-brand-pink-hover transition-colors"
 					>
 						Ver Colección
 					</a>
@@ -91,7 +91,7 @@ export default function Hero() {
 							key={i}
 							onClick={() => setCurrent(i)}
 							className={`h-1.5 rounded-full transition-all duration-300 ${
-								i === current ? 'w-8 bg-[#F2A8C0]' : 'w-2 bg-white/40'
+								i === current ? 'w-8 bg-brand-pink' : 'w-2 bg-white/40'
 							}`}
 							aria-label={`Foto ${i + 1}`}
 						/>

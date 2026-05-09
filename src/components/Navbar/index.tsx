@@ -71,7 +71,7 @@ export default function Navbar() {
 						<path d="M16 10a4 4 0 01-8 0" />
 					</svg>
 					{totalItems > 0 && (
-						<span className="absolute -top-2 -right-2 w-4 h-4 rounded-full bg-[#F2A8C0] text-white text-[10px] font-bold flex items-center justify-center">
+						<span className="absolute -top-2 -right-2 w-4 h-4 rounded-full bg-brand-pink text-white text-[10px] font-bold flex items-center justify-center">
 							{totalItems}
 						</span>
 					)}
@@ -101,7 +101,7 @@ export default function Navbar() {
 				className={`fixed inset-0 z-[60] md:hidden transition-opacity duration-300 ${open ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}
 			>
 				{/* Overlay */}
-				<div className="absolute inset-0 bg-[#444444]/60" onClick={close} />
+				<div className="absolute inset-0 bg-neutral-dark/60" onClick={close} />
 
 				{/* Sheet */}
 				<div
@@ -113,22 +113,22 @@ export default function Navbar() {
 				>
 					{/* Handle */}
 					<div className="flex justify-center pt-3 pb-2">
-						<div className="w-10 h-1 rounded-full bg-[#E8D5E0]" />
+						<div className="w-10 h-1 rounded-full bg-brand-pink-border" />
 					</div>
 
 					{/* Eyebrow */}
-					<p className="text-center text-[10px] font-bold tracking-[0.3em] text-[#F2A8C0] uppercase pt-1 pb-3">
+					<p className="text-center text-[10px] font-bold tracking-[0.3em] text-brand-pink uppercase pt-1 pb-3">
 						Navegación
 					</p>
 
 					{/* Links */}
 					<ul>
 						{links.map((link, i) => (
-							<li key={link} className={i < links.length - 1 ? 'border-b border-[#F2E8ED]' : ''}>
+							<li key={link} className={i < links.length - 1 ? 'border-b border-brand-pink-border-light' : ''}>
 								<a
 									href={`#${link.toLowerCase()}`}
 									onClick={close}
-									className="flex items-center justify-between px-7 py-4 text-[#444444] text-lg font-semibold"
+									className="flex items-center justify-between px-7 py-4 text-neutral-dark text-lg font-semibold"
 								>
 									{link}
 									<svg width="18" height="18" fill="none" stroke="#F2A8C0" strokeWidth="2" viewBox="0 0 24 24">
@@ -144,7 +144,7 @@ export default function Navbar() {
 						href={`https://wa.me/${STORE_WHATSAPP}`}
 						target="_blank"
 						rel="noopener noreferrer"
-						className="flex items-center justify-center gap-2 mx-0 bg-[#25D366] text-white font-semibold text-sm py-5 mt-2"
+						className="flex items-center justify-center gap-2 mx-0 bg-whatsapp text-white font-semibold text-sm py-5 mt-2"
 					>
 						<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
 							<path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" />

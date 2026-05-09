@@ -12,15 +12,15 @@ export default function CareCard({ icon: Icon, title, text, delay = 0 }: CareCar
 		<article
 			data-reveal="right"
 			style={{ transitionDelay: `${delay}ms` }}
-			className="group bg-white border border-[#F2A8C0] rounded-xl p-7 flex flex-col gap-4 h-full
-				transition-all duration-300 hover:scale-[1.02] hover:shadow-lg hover:shadow-[#F2A8C0]/20 hover:border-[#F2A8C0] hover:bg-[#FFF5F8]"
+			className="group bg-white border border-brand-pink rounded-xl p-7 flex flex-col gap-4 h-full
+				transition-all duration-300 hover:scale-[1.02] hover:shadow-lg hover:shadow-brand-pink/20 hover:border-brand-pink hover:bg-brand-pink-subtle"
 		>
-			<div className="w-10 h-10 rounded-full bg-[#F2A8C0]/15 flex items-center justify-center
-				transition-colors duration-300 group-hover:bg-[#F2A8C0]/25">
-				<Icon size={20} className="text-[#F2A8C0]" strokeWidth={1.75} />
+			<div className="w-10 h-10 rounded-full bg-brand-pink/15 flex items-center justify-center
+				transition-colors duration-300 group-hover:bg-brand-pink/25">
+				<Icon size={20} className="text-brand-pink" strokeWidth={1.75} />
 			</div>
-			<h3 className="text-[#444444] text-base font-semibold">{title}</h3>
-			<p className="text-[#888888] text-sm leading-relaxed">{text}</p>
+			<h3 className="text-neutral-dark text-base font-semibold">{title}</h3>
+			<p className="text-neutral-muted text-sm leading-relaxed">{text}</p>
 		</article>
 	)
 }

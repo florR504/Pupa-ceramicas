@@ -20,12 +20,12 @@ export default function About() {
 					alt="About"
 					width={1000}
 					height={1000}
-					className="w-full h-full min-h-[340px] bg-gradient-to-br from-[#8ECFC9]/60 to-[#F2A8C0]/40"
+					className="w-full h-full min-h-[340px] bg-gradient-to-br from-brand-mint/60 to-brand-pink/40"
 				/>
 			</div>
 
 			{/* Contenido */}
-			<div className="w-full md:w-1/2 bg-[#8ECFC9] flex items-center">
+			<div className="w-full md:w-1/2 bg-brand-mint flex items-center">
 				<div className="px-12 md:px-20 py-16 flex flex-col gap-7">
 					<span className="text-white/80 text-[11px] font-semibold tracking-[0.4em] uppercase">
 						Mi historia
@@ -37,26 +37,26 @@ export default function About() {
 						artista ceramista independiente
 					</h2>
 
-					<p className="text-[#E0F5F3] text-base leading-relaxed max-w-lg">
+					<p className="text-brand-mint-light text-base leading-relaxed max-w-lg">
 						Soy la persona detrás de "Pupa Cerámicas". Amo hacer manualidades desde que tengo memoria y, aunque estudié otra carrera, hubo una parte de mí que siempre buscó volver a crear con las manos.
 					</p>
 
-					<p className="text-[#E0F5F3] text-base leading-relaxed max-w-lg">
+					<p className="text-brand-mint-light text-base leading-relaxed max-w-lg">
 						Éste emprendimiento surgió hace 4 años desde la necesidad personal de conectar conmigo misma y crear algo propio que disfrutase hacer todos los días.
 					</p>
-					<p className="text-[#E0F5F3] text-base leading-relaxed max-w-lg">
+					<p className="text-brand-mint-light text-base leading-relaxed max-w-lg">
 						Por eso, hoy, poder enfocarme en el diseño y creación artesanal de mis piezas me permite compartir mi arte con quienes se sienten identificados con mi historia y lo que hago.
 						Gracias a tod@s los que apoyan mi arte y hacen posible que pueda seguir creando y creciendo en este proyecto tan personal ♡
 					</p>
 
-					<div className="w-12 h-0.5 bg-[#F2A8C0]" />
+					<div className="w-12 h-0.5 bg-brand-pink" />
 
 					{/* Stats */}
 					<div className="flex gap-12 flex-wrap">
 						{stats.map((s) => (
 							<div key={s.label} className="flex flex-col gap-1">
 								<span className="text-white text-3xl font-bold">{s.value}</span>
-								<span className="text-[#E0F5F3] text-sm">{s.label}</span>
+								<span className="text-brand-mint-light text-sm">{s.label}</span>
 							</div>
 						))}
 					</div>

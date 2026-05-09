@@ -24,10 +24,10 @@ export default function PotteryCare() {
 		<section className="bg-white py-24 px-8 md:px-20">
 			<div className="max-w-6xl mx-auto">
 				<div className="text-center mb-16">
-					<span className="text-[#F2A8C0] text-xs font-semibold tracking-[0.4em] uppercase">
+					<span className="text-brand-pink text-xs font-semibold tracking-[0.4em] uppercase">
 						Cuidados
 					</span>
-					<h2 className="text-[#444444] text-4xl font-bold mt-4">
+					<h2 className="text-neutral-dark text-4xl font-bold mt-4">
 						Cuidados de las piezas
 					</h2>
 				</div>
