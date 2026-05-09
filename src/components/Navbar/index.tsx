@@ -43,7 +43,7 @@ export default function Navbar() {
 	return (
 		<>
 			<nav className="absolute top-0 left-0 right-0 z-50 flex items-center justify-between px-8 md:px-20">
-				<Image src="/assets/images/logo.png" alt="pupa cerámicas" width={100} height={100} />
+				<Image src="/assets/images/logo_white.png" alt="pupa cerámicas" width={100} height={100} />
 
 				{/* Desktop links */}
 				<ul className="hidden md:flex gap-12">
