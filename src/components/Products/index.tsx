@@ -4,9 +4,6 @@ import { useEffect, useRef, useState } from 'react'
 import ProductCard from './components/card'
 import ProductModal from './components/modal'
 import { type Product } from '@/types/product'
-import productsData from '@/data/products.json'
-
-const products: Product[] = productsData
 
 function getVisibleCount() {
 	if (typeof window === 'undefined') return 3
@@ -15,19 +12,48 @@ function getVisibleCount() {
 	return 1
 }
 
+function ProductCardSkeleton({ width }: { width: number }) {
+	return (
+		<div className="flex-shrink-0 px-0 md:px-4 animate-pulse" style={{ width: `${width}%` }}>
+			<div className="bg-white rounded-lg overflow-hidden shadow-sm">
+				<div className="w-full h-72 bg-brand-pink-border-light" />
+				<div className="p-6 flex flex-col gap-3">
+					<div className="h-2.5 w-16 bg-brand-pink-border-light rounded-full" />
+					<div className="h-4 w-3/4 bg-brand-pink-border-light rounded-full" />
+					<div className="h-3 w-full bg-brand-pink-border-light rounded-full" />
+					<div className="h-3 w-5/6 bg-brand-pink-border-light rounded-full" />
+					<div className="flex items-center justify-between mt-2">
+						<div className="h-6 w-12 bg-brand-pink-border-light rounded-full" />
+						<div className="h-8 w-24 bg-brand-pink-border-light rounded-full" />
+					</div>
+				</div>
+			</div>
+		</div>
+	)
+}
+
 export default function Products() {
+	const [products, setProducts] = useState<Product[]>([])
+	const [loading, setLoading] = useState(true)
 	const [current, setCurrent] = useState(0)
 	const [visibleCount, setVisibleCount] = useState(3)
 	const [selectedProduct, setSelectedProduct] = useState<Product | null>(null)
 	const startX = useRef<number | null>(null)
 
-	const maxIndex = products.length - visibleCount
+	const maxIndex = Math.max(0, products.length - visibleCount)
+
+	useEffect(() => {
+		fetch('/api/products')
+			.then((r) => r.json())
+			.then((data) => { setProducts(data); setLoading(false) })
+			.catch(() => { setProducts([]); setLoading(false) })
+	}, [])
 
 	useEffect(() => {
 		const update = () => {
 			const count = getVisibleCount()
 			setVisibleCount(count)
-			setCurrent((c) => Math.min(c, products.length - count))
+			setCurrent((c) => Math.max(0, Math.min(c, products.length - count)))
 		}
 		update()
 		window.addEventListener('resize', update)
@@ -80,26 +106,31 @@ export default function Products() {
 				{/* Slider */}
 				<div
 					className="relative overflow-hidden"
-					onTouchStart={onTouchStart}
-					onTouchEnd={onTouchEnd}
+					onTouchStart={loading ? undefined : onTouchStart}
+					onTouchEnd={loading ? undefined : onTouchEnd}
 				>
 					<div
 						className="flex transition-transform duration-500 ease-in-out"
-						style={{ transform: `translateX(-${current * cardWidth}%)` }}
+						style={{ transform: loading ? 'none' : `translateX(-${current * cardWidth}%)` }}
 					>
-						{products.map((product, i) => (
-							<ProductCard
-								key={i}
-								{...product}
-								width={cardWidth}
-								onClick={() => setSelectedProduct(product)}
-							/>
-						))}
+						{loading
+							? Array.from({ length: visibleCount }).map((_, i) => (
+								<ProductCardSkeleton key={i} width={cardWidth} />
+							))
+							: products.map((product, i) => (
+								<ProductCard
+									key={i}
+									{...product}
+									width={cardWidth}
+									onClick={() => setSelectedProduct(product)}
+								/>
+							))
+						}
 					</div>
 				</div>
 
 				{/* Controles */}
-				<div className="flex items-center justify-center gap-6 mt-10">
+				{!loading && <div className="flex items-center justify-center gap-6 mt-10">
 					<button
 						onClick={prev}
 						disabled={current === 0}
@@ -157,7 +188,7 @@ export default function Products() {
 							<path d="M9 18l6-6-6-6" />
 						</svg>
 					</button>
-				</div>
+				</div>}
 			</div>
 		</section>
 		</>
