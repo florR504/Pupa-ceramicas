@@ -3,7 +3,7 @@ import clientPromise from '@/lib/mongodb'
 
 export async function GET() {
 	try {
-		const client = await clientPromise
+		const client = await clientPromise()
 		const reviews = await client
 			.db('Pupa_database')
 			.collection('reviews')
@@ -30,7 +30,7 @@ export async function POST(request: Request) {
 			return NextResponse.json({ error: 'La puntuación debe ser entre 1 y 5' }, { status: 400 })
 		}
 
-		const client = await clientPromise
+		const client = await clientPromise()
 		await client.db('Pupa_database').collection('reviews').insertOne({
 			reviewer_name: String(reviewer_name).slice(0, 100),
 			workshop: String(workshop).slice(0, 100),

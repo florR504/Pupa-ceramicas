@@ -3,7 +3,7 @@ import clientPromise from '@/lib/mongodb'
 
 export async function GET() {
 	try {
-		const client = await clientPromise
+		const client = await clientPromise()
 		const products = await client
 			.db('Pupa_database')
 			.collection('products')
