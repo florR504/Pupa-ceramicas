@@ -2,8 +2,9 @@
 
 import { useEffect, useState, useRef } from 'react'
 import { useRouter } from 'next/navigation'
-import { Plus, Pencil, Trash2, Check, X, LogOut, Package, Star } from 'lucide-react'
+import { Plus, Pencil, Trash2, Check, X, LogOut, Package, Star, Image as ImageIcon } from 'lucide-react'
 import { type Product } from '@/types/product'
+import { type StudentWork } from '@/types/student-work'
 
 interface Review {
 	_id: string
@@ -14,11 +15,12 @@ interface Review {
 	created_at: string
 }
 
+const WORKSHOPS = ['Clase de prueba', 'Taller de ceramica', 'Taller KIDS']
 const EMPTY_FORM = { name: '', category: '', description: '', price: '', dimensions: '', material: '', stock: '', imageUrl: '' }
 
 export default function AdminDashboard() {
 	const router = useRouter()
-	const [tab, setTab] = useState<'products' | 'reviews'>('products')
+	const [tab, setTab] = useState<'products' | 'reviews' | 'gallery'>('products')
 
 	// Products
 	const [products, setProducts] = useState<Product[]>([])
@@ -37,8 +39,22 @@ export default function AdminDashboard() {
 	const [reviewsLoading, setReviewsLoading] = useState(true)
 	const [processingId, setProcessingId] = useState<string | null>(null)
 
+	// Gallery
+	const [works, setWorks] = useState<StudentWork[]>([])
+	const [galleryLoading, setGalleryLoading] = useState(false)
+	const [showGalleryForm, setShowGalleryForm] = useState(false)
+	const [galleryFile, setGalleryFile] = useState<File | null>(null)
+	const [galleryPreview, setGalleryPreview] = useState('')
+	const [galleryWorkshop, setGalleryWorkshop] = useState('')
+	const [uploadingGallery, setUploadingGallery] = useState(false)
+	const [deletingGalleryId, setDeletingGalleryId] = useState<string | null>(null)
+	const galleryFileRef = useRef<HTMLInputElement>(null)
+
 	useEffect(() => { loadProducts() }, [])
-	useEffect(() => { if (tab === 'reviews') loadReviews() }, [tab])
+	useEffect(() => {
+		if (tab === 'reviews') loadReviews()
+		if (tab === 'gallery') loadGallery()
+	}, [tab])
 
 	async function loadProducts() {
 		setProductsLoading(true)
@@ -53,6 +69,13 @@ export default function AdminDashboard() {
 		const res = await fetch('/api/admin/reviews')
 		if (res.ok) setReviews(await res.json())
 		setReviewsLoading(false)
+	}
+
+	async function loadGallery() {
+		setGalleryLoading(true)
+		const res = await fetch('/api/gallery')
+		if (res.ok) setWorks(await res.json())
+		setGalleryLoading(false)
 	}
 
 	function openCreate() {
@@ -90,45 +113,61 @@ export default function AdminDashboard() {
 	async function handleSave(e: React.FormEvent) {
 		e.preventDefault()
 		setSaving(true)
-
 		const fd = new FormData()
 		Object.entries(form).forEach(([k, v]) => fd.append(k, v))
 		if (imageFile) fd.append('image', imageFile)
 		if (editing?._id) fd.append('id', editing._id)
-
-		const res = await fetch('/api/admin/products', {
-			method: editing ? 'PUT' : 'POST',
-			body: fd,
-		})
-
-		if (res.ok) {
-			setShowForm(false)
-			loadProducts()
-		}
+		const res = await fetch('/api/admin/products', { method: editing ? 'PUT' : 'POST', body: fd })
+		if (res.ok) { setShowForm(false); loadProducts() }
 		setSaving(false)
 	}
 
 	async function handleDelete(id: string) {
 		if (!confirm('¿Eliminar este producto?')) return
 		setDeletingId(id)
-		await fetch('/api/admin/products', {
-			method: 'DELETE',
-			headers: { 'Content-Type': 'application/json' },
-			body: JSON.stringify({ id }),
-		})
+		await fetch('/api/admin/products', { method: 'DELETE', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ id }) })
 		setDeletingId(null)
 		loadProducts()
 	}
 
 	async function handleReview(id: string, action: 'approve' | 'reject') {
 		setProcessingId(id)
-		await fetch('/api/admin/reviews', {
-			method: 'PATCH',
-			headers: { 'Content-Type': 'application/json' },
-			body: JSON.stringify({ id, action }),
-		})
+		await fetch('/api/admin/reviews', { method: 'PATCH', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ id, action }) })
 		setProcessingId(null)
 		loadReviews()
+	}
+
+	function handleGalleryFileChange(e: React.ChangeEvent<HTMLInputElement>) {
+		const file = e.target.files?.[0]
+		if (!file) return
+		setGalleryFile(file)
+		setGalleryPreview(URL.createObjectURL(file))
+	}
+
+	async function handleGalleryUpload(e: React.FormEvent) {
+		e.preventDefault()
+		if (!galleryFile) return
+		setUploadingGallery(true)
+		const fd = new FormData()
+		fd.append('image', galleryFile)
+		if (galleryWorkshop) fd.append('workshop', galleryWorkshop)
+		const res = await fetch('/api/admin/gallery', { method: 'POST', body: fd })
+		if (res.ok) {
+			setShowGalleryForm(false)
+			setGalleryFile(null)
+			setGalleryPreview('')
+			setGalleryWorkshop('')
+			loadGallery()
+		}
+		setUploadingGallery(false)
+	}
+
+	async function handleDeleteGallery(id: string, imageUrl: string) {
+		if (!confirm('¿Eliminar esta foto?')) return
+		setDeletingGalleryId(id)
+		await fetch('/api/admin/gallery', { method: 'DELETE', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ id, imageUrl }) })
+		setDeletingGalleryId(null)
+		loadGallery()
 	}
 
 	async function handleLogout() {
@@ -136,9 +175,10 @@ export default function AdminDashboard() {
 		router.push('/admin')
 	}
 
+	const tabCls = (t: string) => `flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-medium transition-colors cursor-pointer ${tab === t ? 'bg-brand-pink text-white' : 'bg-white text-neutral-muted hover:text-neutral-dark border border-brand-pink-border'}`
+
 	return (
 		<main className="min-h-screen bg-neutral-surface">
-			{/* Header */}
 			<header className="bg-white border-b border-brand-pink/20 px-6 py-4 flex items-center justify-between">
 				<h1 className="text-neutral-dark font-bold text-lg">Panel de administración</h1>
 				<button onClick={handleLogout} className="flex items-center gap-2 text-neutral-muted hover:text-neutral-dark text-sm transition-colors cursor-pointer">
@@ -149,18 +189,16 @@ export default function AdminDashboard() {
 
 			<div className="max-w-5xl mx-auto px-4 py-8">
 				{/* Tabs */}
-				<div className="flex gap-2 mb-8">
-					<button
-						onClick={() => setTab('products')}
-						className={`flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-medium transition-colors cursor-pointer ${tab === 'products' ? 'bg-brand-pink text-white' : 'bg-white text-neutral-muted hover:text-neutral-dark border border-brand-pink-border'}`}
-					>
+				<div className="flex gap-2 mb-8 flex-wrap">
+					<button onClick={() => setTab('products')} className={tabCls('products')}>
 						<Package size={16} />
 						Productos
 					</button>
-					<button
-						onClick={() => setTab('reviews')}
-						className={`flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-medium transition-colors cursor-pointer ${tab === 'reviews' ? 'bg-brand-pink text-white' : 'bg-white text-neutral-muted hover:text-neutral-dark border border-brand-pink-border'}`}
-					>
+					<button onClick={() => setTab('gallery')} className={tabCls('gallery')}>
+						<ImageIcon size={16} />
+						Galería
+					</button>
+					<button onClick={() => setTab('reviews')} className={tabCls('reviews')}>
 						<Star size={16} />
 						Reseñas pendientes
 						{reviews.length > 0 && <span className="bg-brand-pink text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">{reviews.length}</span>}
@@ -177,22 +215,15 @@ export default function AdminDashboard() {
 								Nuevo producto
 							</button>
 						</div>
-
 						{productsLoading ? (
 							<div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-								{Array.from({ length: 4 }).map((_, i) => (
-									<div key={i} className="bg-white rounded-xl h-28 animate-pulse" />
-								))}
+								{Array.from({ length: 4 }).map((_, i) => <div key={i} className="bg-white rounded-xl h-28 animate-pulse" />)}
 							</div>
 						) : (
 							<div className="grid grid-cols-1 md:grid-cols-2 gap-4">
 								{products.map((p) => (
 									<div key={p._id} className="bg-white rounded-xl border border-brand-pink/10 p-4 flex gap-4 items-center">
-										<img
-											src={p.image}
-											alt={p.name}
-											className="w-16 h-16 rounded-lg object-cover flex-shrink-0"
-										/>
+										<img src={p.image} alt={p.name} className="w-16 h-16 rounded-lg object-cover flex-shrink-0" />
 										<div className="flex-1 min-w-0">
 											<p className="text-neutral-dark font-medium text-sm truncate">{p.name}</p>
 											<p className="text-neutral-muted text-xs">{p.category}</p>
@@ -202,14 +233,53 @@ export default function AdminDashboard() {
 											<button onClick={() => openEdit(p)} className="w-8 h-8 rounded-lg border border-brand-pink-border flex items-center justify-center text-neutral-muted hover:bg-brand-pink hover:text-white hover:border-brand-pink transition-colors cursor-pointer">
 												<Pencil size={14} />
 											</button>
-											<button
-												onClick={() => handleDelete(p._id!)}
-												disabled={deletingId === p._id}
-												className="w-8 h-8 rounded-lg border border-brand-pink-border flex items-center justify-center text-neutral-muted hover:bg-red-500 hover:text-white hover:border-red-500 transition-colors cursor-pointer disabled:opacity-40"
-											>
+											<button onClick={() => handleDelete(p._id!)} disabled={deletingId === p._id} className="w-8 h-8 rounded-lg border border-brand-pink-border flex items-center justify-center text-neutral-muted hover:bg-red-500 hover:text-white hover:border-red-500 transition-colors cursor-pointer disabled:opacity-40">
 												<Trash2 size={14} />
 											</button>
 										</div>
+									</div>
+								))}
+							</div>
+						)}
+					</div>
+				)}
+
+				{/* Gallery tab */}
+				{tab === 'gallery' && (
+					<div>
+						<div className="flex justify-between items-center mb-5">
+							<p className="text-neutral-muted text-sm">{works.length} fotos</p>
+							<button onClick={() => setShowGalleryForm(true)} className="flex items-center gap-2 bg-brand-pink text-white px-4 py-2.5 rounded-lg text-sm font-medium hover:bg-brand-pink/90 transition-colors cursor-pointer">
+								<Plus size={16} />
+								Subir foto
+							</button>
+						</div>
+						{galleryLoading ? (
+							<div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+								{Array.from({ length: 6 }).map((_, i) => <div key={i} className="bg-white rounded-xl aspect-square animate-pulse" />)}
+							</div>
+						) : works.length === 0 ? (
+							<div className="bg-white rounded-xl border border-brand-pink/10 p-12 text-center">
+								<ImageIcon size={32} className="text-brand-pink-border mx-auto mb-3" />
+								<p className="text-neutral-muted text-sm">Todavía no hay fotos en la galería</p>
+							</div>
+						) : (
+							<div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+								{works.map((w) => (
+									<div key={w._id} className="relative group rounded-xl overflow-hidden aspect-square bg-brand-pink-border-light">
+										<img src={w.image} alt="Trabajo alumno" className="w-full h-full object-cover" />
+										{w.workshop && (
+											<span className="absolute top-2 left-2 bg-black/40 text-white text-xs font-medium px-2 py-0.5 rounded-full">
+												{w.workshop}
+											</span>
+										)}
+										<button
+											onClick={() => handleDeleteGallery(w._id!, w.image)}
+											disabled={deletingGalleryId === w._id}
+											className="absolute top-2 right-2 w-7 h-7 rounded-full bg-red-500 text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer disabled:opacity-40"
+										>
+											<Trash2 size={12} />
+										</button>
 									</div>
 								))}
 							</div>
@@ -222,9 +292,7 @@ export default function AdminDashboard() {
 					<div>
 						{reviewsLoading ? (
 							<div className="flex flex-col gap-4">
-								{Array.from({ length: 3 }).map((_, i) => (
-									<div key={i} className="bg-white rounded-xl h-32 animate-pulse" />
-								))}
+								{Array.from({ length: 3 }).map((_, i) => <div key={i} className="bg-white rounded-xl h-32 animate-pulse" />)}
 							</div>
 						) : reviews.length === 0 ? (
 							<div className="bg-white rounded-xl border border-brand-pink/10 p-12 text-center">
@@ -250,18 +318,10 @@ export default function AdminDashboard() {
 												<p className="text-neutral-muted text-sm leading-relaxed">{r.comment}</p>
 											</div>
 											<div className="flex gap-2 flex-shrink-0">
-												<button
-													onClick={() => handleReview(r._id, 'approve')}
-													disabled={processingId === r._id}
-													className="w-9 h-9 rounded-lg bg-green-50 border border-green-200 flex items-center justify-center text-green-600 hover:bg-green-500 hover:text-white hover:border-green-500 transition-colors cursor-pointer disabled:opacity-40"
-												>
+												<button onClick={() => handleReview(r._id, 'approve')} disabled={processingId === r._id} className="w-9 h-9 rounded-lg bg-green-50 border border-green-200 flex items-center justify-center text-green-600 hover:bg-green-500 hover:text-white hover:border-green-500 transition-colors cursor-pointer disabled:opacity-40">
 													<Check size={16} />
 												</button>
-												<button
-													onClick={() => handleReview(r._id, 'reject')}
-													disabled={processingId === r._id}
-													className="w-9 h-9 rounded-lg bg-red-50 border border-red-200 flex items-center justify-center text-red-500 hover:bg-red-500 hover:text-white hover:border-red-500 transition-colors cursor-pointer disabled:opacity-40"
-												>
+												<button onClick={() => handleReview(r._id, 'reject')} disabled={processingId === r._id} className="w-9 h-9 rounded-lg bg-red-50 border border-red-200 flex items-center justify-center text-red-500 hover:bg-red-500 hover:text-white hover:border-red-500 transition-colors cursor-pointer disabled:opacity-40">
 													<X size={16} />
 												</button>
 											</div>
@@ -280,21 +340,13 @@ export default function AdminDashboard() {
 					<div className="bg-white rounded-2xl w-full max-w-lg max-h-[90vh] overflow-y-auto">
 						<div className="p-6 border-b border-brand-pink/10 flex items-center justify-between">
 							<h2 className="text-neutral-dark font-bold">{editing ? 'Editar producto' : 'Nuevo producto'}</h2>
-							<button onClick={() => setShowForm(false)} className="text-neutral-muted hover:text-neutral-dark cursor-pointer">
-								<X size={20} />
-							</button>
+							<button onClick={() => setShowForm(false)} className="text-neutral-muted hover:text-neutral-dark cursor-pointer"><X size={20} /></button>
 						</div>
 						<form onSubmit={handleSave} className="p-6 flex flex-col gap-4">
-							{/* Image upload */}
 							<div>
 								<label className="text-neutral-dark text-sm font-medium block mb-2">Imagen</label>
-								<div
-									onClick={() => fileRef.current?.click()}
-									className="w-full h-40 rounded-xl border-2 border-dashed border-brand-pink-border flex items-center justify-center cursor-pointer hover:border-brand-pink transition-colors overflow-hidden"
-								>
-									{imagePreview ? (
-										<img src={imagePreview} alt="" className="w-full h-full object-cover" />
-									) : (
+								<div onClick={() => fileRef.current?.click()} className="w-full h-40 rounded-xl border-2 border-dashed border-brand-pink-border flex items-center justify-center cursor-pointer hover:border-brand-pink transition-colors overflow-hidden">
+									{imagePreview ? <img src={imagePreview} alt="" className="w-full h-full object-cover" /> : (
 										<div className="text-center">
 											<Plus size={24} className="text-brand-pink-border mx-auto mb-1" />
 											<p className="text-neutral-muted text-xs">Hacé click para subir una imagen</p>
@@ -303,7 +355,6 @@ export default function AdminDashboard() {
 								</div>
 								<input ref={fileRef} type="file" accept="image/*" className="hidden" onChange={handleImageChange} />
 							</div>
-
 							<Field label="Nombre *" value={form.name} onChange={(v) => setForm({ ...form, name: v })} required />
 							<Field label="Categoría *" value={form.category} onChange={(v) => setForm({ ...form, category: v })} required placeholder="Ej: Tazas, Sahumerios..." />
 							<Field label="Descripción *" value={form.description} onChange={(v) => setForm({ ...form, description: v })} required textarea />
@@ -313,13 +364,49 @@ export default function AdminDashboard() {
 								<Field label="Material" value={form.material} onChange={(v) => setForm({ ...form, material: v })} placeholder="Ej: Cerámica" />
 							</div>
 							<Field label="Stock" value={form.stock} onChange={(v) => setForm({ ...form, stock: v })} placeholder="Ej: Disponible, Sin stock..." />
-
 							<div className="flex gap-3 mt-2">
-								<button type="button" onClick={() => setShowForm(false)} className="flex-1 border border-brand-pink-border rounded-lg py-2.5 text-sm text-neutral-muted hover:text-neutral-dark transition-colors cursor-pointer">
-									Cancelar
-								</button>
+								<button type="button" onClick={() => setShowForm(false)} className="flex-1 border border-brand-pink-border rounded-lg py-2.5 text-sm text-neutral-muted hover:text-neutral-dark transition-colors cursor-pointer">Cancelar</button>
 								<button type="submit" disabled={saving} className="flex-1 bg-brand-pink text-white rounded-lg py-2.5 text-sm font-medium hover:bg-brand-pink/90 transition-colors disabled:opacity-50 cursor-pointer">
 									{saving ? 'Guardando...' : editing ? 'Guardar cambios' : 'Crear producto'}
+								</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			)}
+
+			{/* Gallery upload modal */}
+			{showGalleryForm && (
+				<div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50 px-4">
+					<div className="bg-white rounded-2xl w-full max-w-sm">
+						<div className="p-6 border-b border-brand-pink/10 flex items-center justify-between">
+							<h2 className="text-neutral-dark font-bold">Subir foto</h2>
+							<button onClick={() => setShowGalleryForm(false)} className="text-neutral-muted hover:text-neutral-dark cursor-pointer"><X size={20} /></button>
+						</div>
+						<form onSubmit={handleGalleryUpload} className="p-6 flex flex-col gap-4">
+							<div>
+								<label className="text-neutral-dark text-sm font-medium block mb-2">Foto *</label>
+								<div onClick={() => galleryFileRef.current?.click()} className="w-full h-48 rounded-xl border-2 border-dashed border-brand-pink-border flex items-center justify-center cursor-pointer hover:border-brand-pink transition-colors overflow-hidden">
+									{galleryPreview ? <img src={galleryPreview} alt="" className="w-full h-full object-cover" /> : (
+										<div className="text-center">
+											<ImageIcon size={24} className="text-brand-pink-border mx-auto mb-1" />
+											<p className="text-neutral-muted text-xs">Hacé click para subir</p>
+										</div>
+									)}
+								</div>
+								<input ref={galleryFileRef} type="file" accept="image/*" className="hidden" onChange={handleGalleryFileChange} />
+							</div>
+							<div>
+								<label className="text-neutral-dark text-sm font-medium block mb-1.5">Taller (opcional)</label>
+								<select value={galleryWorkshop} onChange={(e) => setGalleryWorkshop(e.target.value)} className="w-full border border-brand-pink-border rounded-lg px-3 py-2.5 text-sm text-neutral-dark focus:outline-none focus:border-brand-pink transition-colors appearance-none cursor-pointer">
+									<option value="">Sin etiqueta</option>
+									{WORKSHOPS.map((w) => <option key={w} value={w}>{w}</option>)}
+								</select>
+							</div>
+							<div className="flex gap-3">
+								<button type="button" onClick={() => setShowGalleryForm(false)} className="flex-1 border border-brand-pink-border rounded-lg py-2.5 text-sm text-neutral-muted hover:text-neutral-dark transition-colors cursor-pointer">Cancelar</button>
+								<button type="submit" disabled={uploadingGallery || !galleryFile} className="flex-1 bg-brand-pink text-white rounded-lg py-2.5 text-sm font-medium hover:bg-brand-pink/90 transition-colors disabled:opacity-50 cursor-pointer">
+									{uploadingGallery ? 'Subiendo...' : 'Subir foto'}
 								</button>
 							</div>
 						</form>
