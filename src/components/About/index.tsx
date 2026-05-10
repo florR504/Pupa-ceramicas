@@ -12,7 +12,6 @@ export default function About() {
 			{/* Imagen — reemplazar con foto del taller */}
 			<div
 				className="w-full md:w-1/2 min-h-[340px] md:min-h-full bg-cover bg-center"
-				style={{ backgroundImage: "url('/about-studio.jpg')" }}
 			>
 				{/* Fallback si no hay imagen */}
 				<Image
