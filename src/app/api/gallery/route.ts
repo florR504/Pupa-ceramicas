@@ -11,7 +11,8 @@ export async function GET() {
 			.sort({ created_at: -1 })
 			.toArray()
 		return NextResponse.json(works)
-	} catch {
-		return NextResponse.json({ error: 'Error al obtener galería' }, { status: 500 })
+	} catch (err) {
+		const message = err instanceof Error ? err.message : String(err)
+		return NextResponse.json({ error: message }, { status: 500 })
 	}
 }
