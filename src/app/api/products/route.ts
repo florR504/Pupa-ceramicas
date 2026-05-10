@@ -1,9 +1,9 @@
 import { NextResponse } from 'next/server'
-import clientPromise from '@/lib/mongodb'
+import getMongoClient from '@/lib/mongodb'
 
 export async function GET() {
 	try {
-		const client = await clientPromise()
+		const client = await getMongoClient()
 		const products = await client
 			.db('Pupa_database')
 			.collection('products')

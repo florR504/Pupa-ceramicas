@@ -1,13 +1,13 @@
 import { NextResponse } from 'next/server'
 import { isAuthenticated } from '@/lib/auth'
 import { uploadImage } from '@/lib/cloudinary'
-import clientPromise from '@/lib/mongodb'
+import getMongoClient from '@/lib/mongodb'
 import { ObjectId } from 'mongodb'
 
 export async function GET() {
 	if (!await isAuthenticated()) return NextResponse.json({ error: 'No autorizado' }, { status: 401 })
 
-	const client = await clientPromise()
+	const client = await getMongoClient()
 	const products = await client.db('Pupa_database').collection('products').find({}).toArray()
 	return NextResponse.json(products)
 }
@@ -41,7 +41,7 @@ export async function POST(request: Request) {
 		return NextResponse.json({ error: 'Faltan campos requeridos' }, { status: 400 })
 	}
 
-	const client = await clientPromise()
+	const client = await getMongoClient()
 	const result = await client.db('Pupa_database').collection('products').insertOne(product)
 	return NextResponse.json({ ok: true, id: result.insertedId }, { status: 201 })
 }
@@ -71,7 +71,7 @@ export async function PUT(request: Request) {
 	}
 	if (imageUrl) updates.image = imageUrl
 
-	const client = await clientPromise()
+	const client = await getMongoClient()
 	await client.db('Pupa_database').collection('products').updateOne(
 		{ _id: new ObjectId(id) },
 		{ $set: updates }
@@ -85,7 +85,7 @@ export async function DELETE(request: Request) {
 	const { id } = await request.json()
 	if (!id) return NextResponse.json({ error: 'ID requerido' }, { status: 400 })
 
-	const client = await clientPromise()
+	const client = await getMongoClient()
 	await client.db('Pupa_database').collection('products').deleteOne({ _id: new ObjectId(id) })
 	return NextResponse.json({ ok: true })
 }

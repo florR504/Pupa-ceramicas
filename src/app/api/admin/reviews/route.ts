@@ -1,12 +1,12 @@
 import { NextResponse } from 'next/server'
 import { isAuthenticated } from '@/lib/auth'
-import clientPromise from '@/lib/mongodb'
+import getMongoClient from '@/lib/mongodb'
 import { ObjectId } from 'mongodb'
 
 export async function GET() {
 	if (!await isAuthenticated()) return NextResponse.json({ error: 'No autorizado' }, { status: 401 })
 
-	const client = await clientPromise()
+	const client = await getMongoClient()
 	const reviews = await client
 		.db('Pupa_database')
 		.collection('reviews')
@@ -24,7 +24,7 @@ export async function PATCH(request: Request) {
 		return NextResponse.json({ error: 'Datos inválidos' }, { status: 400 })
 	}
 
-	const client = await clientPromise()
+	const client = await getMongoClient()
 	const collection = client.db('Pupa_database').collection('reviews')
 
 	if (action === 'approve') {

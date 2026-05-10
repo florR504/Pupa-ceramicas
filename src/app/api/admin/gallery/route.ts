@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server'
 import { isAuthenticated } from '@/lib/auth'
 import { uploadImage, deleteImage } from '@/lib/cloudinary'
-import clientPromise from '@/lib/mongodb'
+import getMongoClient from '@/lib/mongodb'
 import { ObjectId } from 'mongodb'
 
 export async function POST(request: Request) {
@@ -14,7 +14,7 @@ export async function POST(request: Request) {
 	const imageUrl = await uploadImage(file)
 	const workshop = String(formData.get('workshop') ?? '') || undefined
 
-	const client = await clientPromise()
+	const client = await getMongoClient()
 	const result = await client.db('Pupa_database').collection('students_work').insertOne({
 		image: imageUrl,
 		workshop,
@@ -32,7 +32,7 @@ export async function DELETE(request: Request) {
 
 	if (imageUrl) await deleteImage(imageUrl)
 
-	const client = await clientPromise()
+	const client = await getMongoClient()
 	await client.db('Pupa_database').collection('students_work').deleteOne({ _id: new ObjectId(id) })
 	return NextResponse.json({ ok: true })
 }
